@@ -1,0 +1,28 @@
+
+
+flex scan, some point may not optimization stopped.
+```
+         Item               Value     Threshold  Converged?        
+ Maximum Force            0.019760     0.000450     NO             
+ RMS     Force            0.001615     0.000300     NO             
+ Maximum Displacement     0.092911     0.001800     NO             
+ RMS     Displacement     0.018550     0.001200     NO             
+ Predicted change in Energy=-2.674223D-04                          
+ Optimization stopped.                                             
+    -- Number of steps exceeded,  NStep= 239                       
+    -- Flag reset to prevent archiving.   
+    
+```
+
+flex scan, Stationary point found
+
+```
+         Item               Value     Threshold  Converged?
+ Maximum Force            0.000008     0.000450     YES
+ RMS     Force            0.000002     0.000300     YES
+ Maximum Displacement     0.000866     0.001800     YES
+ RMS     Displacement     0.000168     0.001200     YES
+ Predicted change in Energy=-2.705818D-09
+ Optimization completed.
+    -- Stationary point found.
+```
