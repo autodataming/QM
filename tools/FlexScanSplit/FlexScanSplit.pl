@@ -5,14 +5,16 @@ use strict;
 #usage:  FlexScanSplit: generate xyz files for each point of G09 flex scan
 #author:  programmed by perlcoder 
 #date:   2016-06-08
-#contact£º Î¢ĞÅ¹«ÖÚºÅ perlcoder   ÁôÑÔ¼´¿É
+#contactï¼š å¾®ä¿¡å…¬ä¼—å· perlcoder   ç•™è¨€å³å¯
 
 my $templatexyz;   
-my $scanlogfile;	  
-if(@ARGV !=2)
+my $scanlogfile;
+my $outputbase;	  
+if(@ARGV <2)
 {
    print "USAGE: \n";
-   print "example:\nperl FlexScanSplit.pl   2a.xyz 2a.log\n";	
+   print "example:\nperl FlexScanSplit.pl   2a.xyz 2a.log  conf_\n";
+   print "conf_  is the output file base name,you can custom it\n";	
    print "programmed by perlcoder  weixin\n";
    die "check the command\n";
    
@@ -20,7 +22,8 @@ if(@ARGV !=2)
 else
 {
    $templatexyz=$ARGV[0];
-   $scanlogfile=$ARGV[1];	
+   $scanlogfile=$ARGV[1];
+   $outputbase=$ARGV[2] || "conf_";	
 	
 }
 
@@ -62,17 +65,34 @@ my $text=<FH>;
 
 #Number     Number       Type             X           Y           Z
 my $string='Number     Number       Type             X           Y           Z';
-my $end='Stationary point found';
-my @segs=$text=~/((?<=$string)(?:(?!$string).)+?(?=$end))/msg;
+my $end1='Stationary point found';
+my $end2='Optimization stopped.';
 
-#print $#segs;
+my @segs=$text=~/((?<=$string)(?:(?!$string).)+?(?:(?:$end1)|(?:$end2)))/msg;
+
+print "segs have  1+",$#segs," \n";
+
 
 my $confid=0;
+
 foreach my $conf(@segs)
 {
-	$confid+=1;
-	 my $file='2a_'.sprintf("%2d",$confid).'.xyz';
+	 $confid+=1;
+	 my $file;
+	 if($conf=~/$end2/)
+	 {
+	 	print  "the point id $confid is not stationary point, you make better optimized it again\n";
+	 	$file=$outputbase.sprintf("%2d",$confid).'_nonSTATIONARYpoint.xyz';
+	 	
+	 }
+	 else
+	 {
+	 
+	      $file=$outputbase.sprintf("%2d",$confid).'.xyz';
+	 
+	 }
      my @lines=split(/\n/,$conf);
+   #  print $lines[-1],"\n";
      my @mollines=@lines[2..$index+1];
      
   
@@ -83,6 +103,8 @@ foreach my $conf(@segs)
 	
 	
 }
+
+print "$confid confs have extracted form the log file\n";
 
 sub writeconf
 {
