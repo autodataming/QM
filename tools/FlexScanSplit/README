@@ -37,3 +37,12 @@ flex scan, Stationary point found
 遇到opt不成功的点，
 - 提取不成功点的构象，进行限制二面角优化。
 
+-output
+```
+F:\wja\14151617>perl FlexScanSplit.pl  2a.xyz  AT-ligand_opt_14151616_-92d_s10new.log  AT1415
+1617_-92_
+segs have  1+36
+the point id 12 is not stationary point, you make better optimized it again
+the point id 31 is not stationary point, you make better optimized it again
+37 confs have extracted form the log file
+```
