@@ -1,4 +1,11 @@
 
+http://sobereva.com/164
+具体怎么解决优化不收敛得看实际情况，特别是要用gview检查优化过程的轨迹，看是否最后开始震荡了（如果能量还在降低则应当继续跑下去）。虽然上面讨论了很多，但从实用性出发，对于初学者笔者推荐按照以下顺序去尝试解决震荡问题：
+1 对于DFT，特别是明尼苏达系列泛函（如M062X、M06、M06L），首先加上int=ultrafine再试。
+2 如果体系小，尝试opt=calcall。如果体系大算得慢，此关键词会令计算量进一步激增，实在没辙再考虑这个。
+3 尝试opt=gdiis。
+4 尝试opt(gdiis,maxstep=x,notrust)，x为3~5。
+
 
 flex scan, some point may not optimization stopped.
 ```
@@ -26,3 +33,7 @@ flex scan, Stationary point found
  Optimization completed.
     -- Stationary point found.
 ```
+---------------------------------
+遇到opt不成功的点，
+- 提取不成功点的构象，进行限制二面角优化。
+
