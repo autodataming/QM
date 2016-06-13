@@ -82,7 +82,7 @@ foreach my $conf(@segs)
 	 if($conf=~/$end2/)
 	 {
 	 	print  "the point id $confid is not stationary point, you make better optimized it again\n";
-	 	$file=$outputbase.sprintf("%2d",$confid).'_nonSTATIONARYpoint.xyz';
+	 	$file=$outputbase.sprintf("%02d",$confid).'_nonSTATIONARYpoint.xyz';
 	 	
 	 }
 	 else
