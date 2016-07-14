@@ -1,0 +1,8 @@
+%nprocshared=4
+%mem=4000MB
+%chk=I_ppa_vacu_scan_B.chk
+#popt=(modredundant)  gen pseudo=read  m062x  nosymm iop(6/7=3)  iop(1/8=4)    
+
+I_ppa_vacu_scan_B
+
+-1 1
